@@ -2,7 +2,13 @@ const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   transpileDependencies: true,
 
-  publicPath: process.env.NODE_ENV === 'production' ? '/vueAppBase/' : '/',
+  css: {
+    loaderOptions: {
+        sass: {
+            additionalData: `@import "@/assets/css/style.scss";`,
+        },
+    },
+  },
 
   pluginOptions: {
     'style-resources-loader': {
