@@ -1,12 +1,28 @@
 <template>
-  <div>
-    <h2>Список пользователей</h2>
-    <UserList :users="userList" @select-user="selectUser"></UserList>
-
-    <UserModal :user="selectedUser"></UserModal>
-
-    <h2>Список платежей</h2>
-    <PaymentList :payments="selectedUser?.payments" @select-payment="selectPayment"></PaymentList>
+  <div class="container">
+    <div class="content">
+      <div class="content__header">
+        <img
+        class="content__logo"
+        src="@/assets/logo.png"
+        alt="logo"
+      >
+        <h1 class="content__logo-title">CYBER<br>ZILLA</h1>
+      </div>
+      <h2 class="content__title">Список пользователей</h2>
+      <UserList
+        class="content__list"
+        :users="userList"
+        @select-user="selectUser"
+      />
+      <UserModal :user="selectedUser" />
+      <h2 class="content__title">Список платежей</h2>
+      <PaymentList
+        class="content__list"
+        :payments="selectedUser?.payments"
+        @select-payment="selectPayment"
+      />
+    </div>
   </div>
 </template>
 
@@ -53,12 +69,58 @@ export default class App extends Vue {
 </script>
 
 <style scoped lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import './assets/fonts.css';
+
+  h1 {
+    font-family: 'Audiowide', sans-serif;
+    color: rgb(220 220 0);
+  }
+
+  .container {
+      background-color: rgb(43 58 79);
+  }
+
+  .content {
+      margin: 0 auto;
+      max-width: 1200px;
+      padding: 60px 20px;
+
+      &__header {
+        display: flex;
+        align-items: center;
+        column-gap: 40px;
+      }
+
+      &__logo {
+          height: 118px;
+          width: 200px;
+      }
+
+      &__logo-title {
+        text-align: center;
+      }
+
+      &__title {
+        font-family: 'Roboto', sans-serif;
+        font-size: 30px;
+        line-height: 36px;
+        color: #ffffff;
+      }
+
+      &__list {
+        font-family: 'Roboto', sans-serif;
+      }
+
+      @media(max-width: 430px) {
+        &__logo {
+            height: 59px;
+            width: 100px;
+        }
+
+        &__logo-title {
+            font-size: 1.25rem;
+            line-height: 1.75rem;
+        }
+      }
+  }
 </style>

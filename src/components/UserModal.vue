@@ -1,24 +1,42 @@
 <template>
   <div class="user-modal">
-    <div class="user-modal__modal-overlay" v-if="isOpen" @click="closeModal"></div>
-    <div class="user-modal__modal-content" v-if="isOpen" :style="{ background }">
+    <div
+      class="user-modal__modal-overlay"
+      v-if="isOpen"
+      @click="closeModal"
+    />
+    <div
+      class="user-modal__modal-content"
+      v-if="isOpen"
+      :style="{ background }"
+    >
       <h3>Редактирование пользователя</h3>
       <form @submit.prevent="saveUser">
         <div>
-          <label for="name">Имя:</label>
+          <label class="label" for="name">Имя:</label>
           <input type="text" id="name" v-model="editedUser.name" required />
         </div>
         <div class="name">
-          <label for="email">Email:</label>
+          <label class="label" for="email">Email:</label>
           <input type="email" id="email" v-model="editedUser.email" required />
         </div>
         <div>
-          <label for="phoneNumber">Номер телефона:</label>
+          <label class="label" for="phoneNumber">Номер телефона:</label>
           <input type="text" id="phoneNumber" v-model="editedUser.phoneNumber" required />
         </div>
         <div class="buttons">
-          <button type="submit">Сохранить</button>
-          <button class="close-button" @click="closeModal">Закрыть</button>
+          <button
+            type="submit"
+            class="save-button"
+          >
+            Сохранить
+          </button>
+          <button
+            class="close-button"
+            @click="closeModal"
+          >
+            X
+          </button>
         </div>
       </form>
     </div>
@@ -38,7 +56,7 @@ export default defineComponent({
     },
     background: {
       type: String,
-      default: '#fff'
+      default: '#2b3a4f'
     },
     isOpen: {
       type: Boolean,
@@ -84,15 +102,18 @@ export default defineComponent({
   }
 
   &__modal-content {
+    font-family: 'Roboto', sans-serif;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 20px;
+    padding: 40px 34px 20px 20px;
     z-index: 1000;
+    border-radius: 20px;
 
     h3 {
       margin-top: 0;
+      color: #ffffff;
     }
 
     form {
@@ -118,15 +139,40 @@ export default defineComponent({
       }
     }
 
+    .label {
+      color: #ffffff;
+    }
+
     .close-button {
       position: absolute;
       top: 10px;
       right: 10px;
       padding: 5px 10px;
-      background-color: #ccc;
+      background-color: rgb(33 48 69);
       border: none;
       border-radius: 5px;
+      color: rgb(199, 54, 22);
       cursor: pointer;
+
+      &:hover {
+        color: rgb(33 48 69);
+        background-color: rgb(199, 54, 22);
+        transition: 0.5s;
+      }
+    }
+
+    .save-button {
+      background-color: rgb(33 48 69);
+      color: rgb(220 220 0);
+      border-radius: 0.75rem;
+      padding: 8px 16px;
+      border: none;
+
+      &:hover {
+        color: rgb(33 48 69);
+        background-color: rgb(220 220 0);
+        transition: 0.5s;
+      }
     }
   }
 }

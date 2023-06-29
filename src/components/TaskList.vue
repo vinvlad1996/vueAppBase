@@ -1,10 +1,23 @@
 <template>
   <div class="task-list">
     <ul>
-      <li v-for="task in tasks" :key="task.id">
+      <li
+        v-for="task in tasks"
+        :key="task.id"
+      >
         <label class="task-item">
-          <input type="checkbox" :value="task.id" v-model="checkedTodo" class="task-checkbox" />
-          <span class="task-description" :class="{ completed: isTaskCompleted(task.id) }">{{ task.description }}</span>
+          <input
+            type="checkbox"
+            :value="task.id"
+            v-model="checkedTodo"
+            class="task-checkbox"
+          />
+          <span
+            class="task-description"
+            :class="{ completed: isTaskCompleted(task.id) }"
+          >
+            {{ task.description }}
+          </span>
         </label>
       </li>
     </ul>
