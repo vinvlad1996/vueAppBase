@@ -29,7 +29,6 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import UserList from './components/UserList.vue';
-import TaskList from './components/TaskList.vue';
 import UserModal from './components/UserModal.vue';
 import PaymentList from './components/PaymentList.vue';
 import { createUserList, User, Payment } from './facture';
@@ -37,7 +36,6 @@ import { createUserList, User, Payment } from './facture';
 @Options({
   components: {
     UserList,
-    TaskList,
     PaymentList,
     UserModal
   },

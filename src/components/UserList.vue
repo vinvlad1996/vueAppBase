@@ -33,6 +33,7 @@
       @save="onEditUserTasks"
       v-if="isTodoModalOpen"
       :tasks="selectedUser.tasks"
+      v-model:is-open="isTodoModalOpen"
     />
     <UserModal
       @save="onEditUser"
@@ -87,6 +88,7 @@ export default defineComponent({
       if (!this.selectedUser) {
         return;
       }
+      this.isTodoModalOpen = false;
       this.selectedUser.tasks = tasks;
       const userIndex = this.userList.findIndex(item => item.id === this.selectedUser?.id);
       this.userList.splice(userIndex, 1, this.selectedUser);

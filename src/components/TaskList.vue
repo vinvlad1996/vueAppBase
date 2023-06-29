@@ -1,27 +1,47 @@
 <template>
-  <div class="task-list">
-    <ul>
-      <li
-        v-for="task in tasks"
-        :key="task.id"
+  <div class="user-modal">
+    <div
+      class="user-modal__modal-overlay"
+      v-if="isOpen"
+      @click="closeModal"
+    />
+    <div
+      class="user-modal__modal-content"
+      v-if="isOpen"
+      :style="{ background }"
+    >
+      <ul>
+        <li
+          v-for="task in tasks"
+          :key="task.id"
+        >
+          <label class="task-item">
+            <input
+              type="checkbox"
+              :value="task.id"
+              v-model="checkedTodo"
+              class="task-checkbox"
+            />
+            <span
+              class="task-description"
+              :class="{ completed: isTaskCompleted(task.id) }"
+            >
+              {{ task.description }}
+            </span>
+          </label>
+        </li>
+      </ul>
+      <button
+        @click="onSave"
+        class="save-button"
+      >Сохранить</button>
+      <button
+        class="close-button"
+        @click="closeModal"
       >
-        <label class="task-item">
-          <input
-            type="checkbox"
-            :value="task.id"
-            v-model="checkedTodo"
-            class="task-checkbox"
-          />
-          <span
-            class="task-description"
-            :class="{ completed: isTaskCompleted(task.id) }"
-          >
-            {{ task.description }}
-          </span>
-        </label>
-      </li>
-    </ul>
-    <button @click="onSave">Сохранить</button>
+        X
+      </button>
+    </div>
   </div>
 </template>
 
@@ -40,6 +60,14 @@ export default defineComponent({
     tasks: {
       type: Array as () => Task[],
       required: true
+    },
+    background: {
+      type: String,
+      default: '#2b3a4f'
+    },
+    isOpen: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -49,6 +77,10 @@ export default defineComponent({
         completed: this.isTaskCompleted(item.id)
       }));
       this.$emit('save', newTasks);
+    },
+
+    closeModal() {
+      this.$emit('update:is-open', false);
     },
 
     isTaskCompleted(id: number) {
@@ -72,7 +104,27 @@ ul {
   list-style-type: none;
 }
 
-.task-list {
+.user-modal {
+  &__modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+
+  &__modal-content {
+    font-family: 'Roboto', sans-serif;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 40px 34px 20px 20px;
+    z-index: 1000;
+    border-radius: 20px;
+  }
 
   ul {
     padding: 0;
@@ -128,5 +180,37 @@ ul {
   .completed {
     text-decoration: line-through;
   }
+
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    background-color: rgb(33 48 69);
+    border: none;
+    border-radius: 5px;
+    color: rgb(199, 54, 22);
+    cursor: pointer;
+
+    &:hover {
+      color: rgb(33 48 69);
+      background-color: rgb(199, 54, 22);
+      transition: 0.5s;
+    }
+  }
+
+  .save-button {
+      background-color: rgb(33 48 69);
+      color: rgb(220 220 0);
+      border-radius: 0.75rem;
+      padding: 8px 16px;
+      border: none;
+
+      &:hover {
+        color: rgb(33 48 69);
+        background-color: rgb(220 220 0);
+        transition: 0.5s;
+      }
+    }
 }
 </style>
